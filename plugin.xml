@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    id="com.ibm.baas.cordova.ibmbaas"
+    version="0.3.5">
+
+    <name>IBMBaaS</name>
+    <description>Cordova IBMBaaS Plugin</description>
+    <license>Apache 2.0</license>
+    <keywords>cordova,IBMBaas</keywords>
+
+    <js-module src="www/IBMBaaS.hybrid.js" name="IBMBaaS">
+        <clobbers target="IBMBaaS" />
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="IBMBaaS">
+                <param name="android-package" value="com.ibm.baas.cordova.CDVIBMBaaS"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+        </config-file>
+
+        <source-file src="src/android/ibmbaas.jar" target-dir="libs" framework="true" />
+        <source-file src="src/android/ibmbaas-cordova-plugin.jar" target-dir="libs" framework="true" />
+    </platform>
+
+    <!-- ios -->
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="IBMBaaS">
+                <param name="ios-package" value="CDVIBMBaaS"/>
+            </feature>
+        </config-file>
+
+
+        <header-file src="src/ios/CDVIBMBaaS.h" />
+        <source-file src="src/ios/CDVIBMBaaS.m" />
+
+        <framework src="src/ios/IBMBaaS.framework" custom="true"/>
+
+    </platform>
+</plugin>
