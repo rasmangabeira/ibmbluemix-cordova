@@ -1,24 +1,24 @@
-# com.ibm.baas.cordova.ibmbaas
+# com.ibm.mobile.services.cordova.core
 
-Provides access to the IBMBaaS
+Provides access to the IBMBluemix
 
 ## Automatic Installation
 
-    cordova plugin add com.ibm.baas.cordova.ibmbaas
+    cordova plugin add com.ibm.mobile.services.cordova.core
 
 ## Manual Installation
 
 ### Manual Installation for Worklight 6.2 projects on Android
 
-1) Copy the `IBMBaaS.hybrid.js` file to your Worklight app project's `common/js` folder.  Then rebuild the Worklight Environment and the file will be copied to the correct Android app location.
+1) Copy the `IBMBluemixHybrid.js` file to your Worklight app project's `common/js` folder.  Then rebuild the Worklight Environment and the file will be copied to the correct Android app location.
 
-2) Reference `IBMBaaS.hybrid.js` in your main `index.html` file after the `worklight/cordova.js` script tag.
+2) Reference `IBMBluemixHybrid.js` in your main `index.html` file after the `worklight/cordova.js` script tag.
 
 ```html
-<script type="text/javascript" src="js/IBMBaaS.hybrid.js"></script>
+<script type="text/javascript" src="js/IBMBluemixHybrid.js"></script>
 ```
 
-3) Copy `src/android/ibmbaas.jar` and `src/android/ibmbaas-cordova-plugin.jar` to your projects `libs` folder.
+3) Copy `src/android/ibmbluemix.jar` and `src/android/ibmbluemix-cordova-plugin.jar` to your projects `libs` folder.
 
 4) Modify the `AndroidManifest.xml` file in your project to include the following permissions to the `manifest` tag:
 
@@ -30,45 +30,45 @@ Provides access to the IBMBaaS
 5) Modify the `Resources/config.xml` file in your project, to add a plugin reference to the `widget` tag:
 
 ```xml
-<feature name="IBMBaaS">
-    <param name="android-package" value="com.ibm.baas.cordova.CDVIBMBaaS" />
+<feature name="IBMBluemix">
+    <param name="android-package" value="com.ibm.mobile.services.cordova.core.CDVIBMBluemix" />
 </feature>
 ```
 
 ### Manual Installation for Worklight 6.2 projects on iOS
 
-1) Copy the `IBMBaaS.hybrid.js` file to your Worklight app project's `common/js` folder.  Then rebuild the Worklight Environment and the file will be copied to the correct iOS app location.
+1) Copy the `IBMBluemixHybrid.js` file to your Worklight app project's `common/js` folder.  Then rebuild the Worklight Environment and the file will be copied to the correct iOS app location.
 
-2) Reference `IBMBaaS.hybrid.js` in your main `index.html` file after the `worklight/cordova.js` script tag.
+2) Reference `IBMBluemixHybrid.js` in your main `index.html` file after the `worklight/cordova.js` script tag.
 
 ```html
-<script type="text/javascript" src="js/IBMBaaS.hybrid.js"></script>
+<script type="text/javascript" src="js/IBMBluemixHybrid.js"></script>
 ```
 
-3) Copy `IBMBaaS.framework` framework to your `Frameworks` folder.
+3) Copy `IBMBluemix.framework` framework to your `Frameworks` folder.
 Note: Select `Copy items into destination group's folder` from XCode
 
 4) Copy the the following files to your `Classes` folder:
 Note: Select `Copy items into destination group's folder` from XCode
 
 ```
-CDVIBMBaaS.h
-CDVIBMBaaS.m
+CDVIBMBluemix.h
+CDVIBMBluemix.m
 ```
 
 5) Modify the `Resources/config.xml` file in your project, to add a plugin reference to the `widget` tag:
 
 ```xml
-<feature name="IBMBaaS">
-    <param name="ios-package" value="CDVIBMBaaS" />
+<feature name="IBMBluemix">
+    <param name="ios-package" value="CDVIBMBluemix" />
 </feature>
 ```
 
-## IBMBaaS API
-IBMBaaS provides access to the following methods.
+## IBMBluemix API
+IBMBluemix provides access to the following methods.
 
-- IBMBaaS.initializeSDK
-- IBMBaaS.getApplicationId
+- IBMBluemix.initializeSDK
+- IBMBluemix.getApplicationId
 
 For more information, see the [API Reference](https://mobile.ng.bluemix.net/mbaas-api/docs/JavaScript/index.html)
 

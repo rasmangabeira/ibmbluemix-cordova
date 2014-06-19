@@ -2,23 +2,23 @@
 
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    id="com.ibm.baas.cordova.ibmbaas"
-    version="0.3.5">
+    id="com.ibm.mobile.cordova.ibmbluemix"
+    version="1.0.0">
 
-    <name>IBMBaaS</name>
-    <description>Cordova IBMBaaS Plugin</description>
+    <name>IBMBluemix Hybrid</name>
+    <description>Cordova IBMBluemix Plugin</description>
     <license>Apache 2.0</license>
-    <keywords>cordova,IBMBaas</keywords>
+    <keywords>cordova,IBMBluemix</keywords>
 
-    <js-module src="www/IBMBaaS.hybrid.js" name="IBMBaaS">
-        <clobbers target="IBMBaaS" />
+	<js-module src="www/IBMBluemixHybrid.js" name="hybrid">
+        <clobbers target="IBMBluemix.hybrid" />
     </js-module>
-
+    
     <!-- android -->
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="IBMBaaS">
-                <param name="android-package" value="com.ibm.baas.cordova.CDVIBMBaaS"/>
+            <feature name="IBMBluemixHybrid">
+                <param name="android-package" value="com.ibm.mobile.services.cordova.core.CDVIBMBluemix"/>
             </feature>
         </config-file>
 
@@ -27,23 +27,23 @@
             <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
         </config-file>
 
-        <source-file src="src/android/ibmbaas.jar" target-dir="libs" framework="true" />
-        <source-file src="src/android/ibmbaas-cordova-plugin.jar" target-dir="libs" framework="true" />
+        <source-file src="src/android/ibmbluemix.jar" target-dir="libs" framework="true" />
+        <source-file src="src/android/ibmbluemix-cordova.jar" target-dir="libs" framework="true" />
     </platform>
 
     <!-- ios -->
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
-            <feature name="IBMBaaS">
-                <param name="ios-package" value="CDVIBMBaaS"/>
+            <feature name="IBMBluemixHybrid">
+                <param name="ios-package" value="CDVIBMBluemix"/>
             </feature>
         </config-file>
 
 
-        <header-file src="src/ios/CDVIBMBaaS.h" />
-        <source-file src="src/ios/CDVIBMBaaS.m" />
+        <header-file src="src/ios/CDVIBMBluemix.h" />
+        <source-file src="src/ios/CDVIBMBluemix.m" />
 
-        <framework src="src/ios/IBMBaaS.framework" custom="true"/>
+        <framework src="src/ios/IBMBluemix.framework" custom="true"/>
 
     </platform>
 </plugin>
