@@ -10,17 +10,19 @@
 #import <CoreLocation/CoreLocation.h>
 
 /**
- The IBMCurrentDevice represents the current device using the SDK.
+ The IBMCurrentDevice class is a provisional API.  APIs that are marked provisional are evolving and might change or be removed in future releases. 
+ 
+ The IBMCurrentDevice represents the current device using the iOS SDK.
  */
 @interface IBMCurrentDevice : NSObject
 
 /**
- The deviceId that identifies the device.
+ The hardwareId is a unique id derived from the mobile devices hardware and is used to identify the device.
  */
 @property (readonly, nonatomic) NSString *hardwareId;
 
 /**
- The deviceModel that identifies the device.
+ The model of the device
  */
 @property (readonly, nonatomic) NSString *model;
 
@@ -30,7 +32,7 @@
 @property (readonly, nonatomic) NSString *platform;
 
 /**
- The devicePlatformVersion that the device is running.
+ The platformVersion is the version of iOS running on the device
  */
 @property (readonly, nonatomic) NSString *platformVersion;
 
@@ -40,7 +42,7 @@
 @property (readonly, nonatomic) NSString *name;
 
 /**
- The current location of the device. This can be nil if the location is not available.
+ The last location of the device. This can be nil if the location is not available.
  */
 @property (readonly, nonatomic) CLLocation *lastLocation;
 

@@ -20,7 +20,7 @@
 @property (readonly, nonatomic) NSData *responseData;
 
 /**
- The IBMHttpRequest used to obtain this IBMHttpResponse
+ The IBMHttpRequest used to obtain this IBMHttpResponse.  This is a snapshot of all the settings that were used to make the request.
  */
 @property (readonly, nonatomic) IBMHttpRequest *request;
 

@@ -10,12 +10,14 @@
 #import "IBMHttpRequest.h"
 
 /**
- An error class used to report failurs for IBMHttpRequest invocations
+ The IBMHttpError class is a provisional API.  APIs that are marked provisional are evolving and might change or be removed in future releases.
+
+ An error class used to report failures for IBMHttpRequest requests
  */
 @interface IBMHttpError : NSError
 
 /**
- The IBMHttpRequest used to obtain this IBMHttpResponse
+ The IBMHttpRequest that caused this error
  */
 @property (readonly, nonatomic) IBMHttpRequest *request;
 

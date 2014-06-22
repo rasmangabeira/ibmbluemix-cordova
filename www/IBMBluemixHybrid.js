@@ -3157,7 +3157,7 @@ define('ibm/mobile/utils/IBMLogger', ['require', 'exports', 'module', '../lib/IB
   
 
 var isNode = IBMUtils.isNode();
-  var Logger = function (object, options, category) {
+  var IBMLogger = function (object, options, category) {
     var args = Array.prototype.slice.call(arguments);
     var object = args[0];
     var adapter = IBMDefaultAdapter;
@@ -3172,14 +3172,14 @@ var isNode = IBMUtils.isNode();
     this.adapter.setLevel(IBMLoggerLevel.INFO);
   };
   IBMLoggerLevel.levels.forEach(function (level) {
-    Logger.prototype[level.name.toLowerCase()] = function (msg) {
+    IBMLogger.prototype[level.name.toLowerCase()] = function (msg) {
       if (level.weight >= this.adapter.getLevel().weight) {
         var logMsg = typeof msg == "object" ? IBMUtils.formatObject(msg) : msg;
         this.adapter.log(level.name, logMsg);
       }
     };
   });
-  Logger.prototype.setLevel = function (level) {
+  IBMLogger.prototype.setLevel = function (level) {
     var l = IBMLoggerLevel.getLevel(level);
     if (l) {
       this.adapter.setLevel(l);
@@ -3187,13 +3187,13 @@ var isNode = IBMUtils.isNode();
       throw new Error("IBMLogger does not support log level:" + level);
     }
   };
-  Logger.prototype.getLevel = function () {
+  IBMLogger.prototype.getLevel = function () {
     return this.adapter.getLevel();
   };
   return {
     getLogger: function () {
       var args = Array.prototype.slice.call(arguments);
-      var f = Function.prototype.bind.apply(Logger, [null].concat(args));
+      var f = Function.prototype.bind.apply(IBMLogger, [null].concat(args));
       return new f();
     }
   };
@@ -3435,11 +3435,11 @@ var logger = ibmLogger.getLogger();
     throw error(message);
   }
   function IBMHybrid(pluginName) {
-    if (!(this instanceof IBMHyrbid)) {
-      throw new Error("IBMHyrbid constructor cannot be called as a function.");
+    if (!(this instanceof IBMHybrid)) {
+      throw new Error("IBMHybrid constructor cannot be called as a function.");
     }
     if (!_.isString(pluginName)) {
-      throw new Error("IBMHyrbid Plugin Name has not been supplied on Initialization");
+      throw new Error("IBMHybrid Plugin Name has not been supplied on Initialization");
     }
     this.pluginName = pluginName;
     return this;
@@ -3472,17 +3472,16 @@ var logger = ibmLogger.getLogger();
 
 
 }).call(this, require, exports, module, _, Q, ibmLogger);
-var __old__ibmhyrbid0 = window['IBMHyrbid'];
-window['IBMHyrbid'] = __umodule__;
+var __old__ibmhybrid0 = window['IBMHybrid'];
+window['IBMHybrid'] = __umodule__;
 
 __umodule__.noConflict = function () {
-  window['IBMHyrbid'] = __old__ibmhyrbid0;
+  window['IBMHybrid'] = __old__ibmhybrid0;
 return __umodule__;
 };
 return __umodule__;
 });
-define('ibm/mobile/IBMBluemixHybrid', ['require', 'exports', 'module', './lib/IBMUnderscore', './lib/IBMQ', './_IBMBluemix', './utils/IBMHybrid', './utils/IBMLogger'], function (require, exports, module, _, Q, _IBMBluemix, IBMHybrid, IBMLogger) {
-  var __umodule__ = (function (require, exports, module, _, Q, _IBMBluemix, IBMHybrid, IBMLogger) {
+define('ibm/mobile/IBMBluemixHybrid', ['require', 'exports', 'module', './lib/IBMUnderscore', './lib/IBMQ', './_IBMBluemix', './utils/IBMHybrid', './utils/IBMLogger', './core/IBMCurrentDevice', './core/IBMCurrentUser'], function (require, exports, module, _, Q, _IBMBluemix, IBMHybrid, IBMLogger, IBMCurrentDevice, IBMCurrentUser) {
   
 
 var CLIENT_PLATFORM_TYPE = "HYBRID";
@@ -3500,8 +3499,8 @@ var CLIENT_PLATFORM_TYPE = "HYBRID";
         this._validateConfig(config, defer);
         var promise = this.hybrid.exec("initialize", [
             config.applicationId,
-            config.applicationRoute,
-            config.applicationSecret
+            config.applicationSecret,
+            config.applicationRoute
           ]);
         defer.resolve(promise);
         return defer.promise;
@@ -3527,7 +3526,7 @@ var CLIENT_PLATFORM_TYPE = "HYBRID";
       getConfig: function () {
         return this.hybrid.exec("getConfig", []);
       },
-      setSecurityToken: function (provider, token) {
+      setSecurityToken: function (token, provider) {
         var defer = Q.defer();
         if (!_.isString(provider)) {
           defer.reject("Invalid provider property");
@@ -3538,8 +3537,8 @@ var CLIENT_PLATFORM_TYPE = "HYBRID";
           return defer.promise;
         }
         return this.hybrid.exec("setSecurityToken", [
-          provider,
-          token
+          token,
+          provider
         ]);
       },
       clearSecurityToken: function () {
@@ -3569,7 +3568,7 @@ var CLIENT_PLATFORM_TYPE = "HYBRID";
           logger.info(device);
           var currentDevice = null;
           if (device) {
-            var currentUser = new IBMCurrentUser(device);
+            var currentDevice = new IBMCurrentDevice(device);
           } else {
             defer.reject(null);
           }
@@ -3586,15 +3585,6 @@ var CLIENT_PLATFORM_TYPE = "HYBRID";
   return IBMBluemixHybrid;
 
 
-}).call(this, require, exports, module, _, Q, _IBMBluemix, IBMHybrid, IBMLogger);
-var __old__ibmbluemix_hybrid0 = window['IBMBluemixHybrid'];
-window['IBMBluemixHybrid'] = __umodule__;
-
-__umodule__.noConflict = function () {
-  window['IBMBluemixHybrid'] = __old__ibmbluemix_hybrid0;
-return __umodule__;
-};
-return __umodule__;
 });
     return require('ibm/mobile/IBMBluemixHybrid');
   };

@@ -9,7 +9,9 @@
 #import <Foundation/Foundation.h>
 
 /**
- The IBMCurrentUser represents the current user (if one is avaiable).  There does not need to be an end user, meaning they could be anonymous.
+ The IBMCurrentUser class is a provisional API.  APIs that are marked provisional are evolving and might change or be removed in future releases. 
+ 
+ The IBMCurrentUser represents the current user (if one is available).  There does not need to be an end user, meaning they could be anonymous.
  */
 @interface IBMCurrentUser : NSObject
 

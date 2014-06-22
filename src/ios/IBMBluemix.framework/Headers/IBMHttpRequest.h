@@ -10,7 +10,7 @@
 @class IBMBluemixService;
 
 /**
-IBMHttpRequest contains all the information that is needed in order to invoke an http request to a secured endpoint
+IBMHttpRequest contains all the information that is needed in order to invoke an HTTP request to a secured endpoint
 */
 @interface IBMHttpRequest : NSObject
 

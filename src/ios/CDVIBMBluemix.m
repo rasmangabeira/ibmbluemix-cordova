@@ -23,23 +23,21 @@
 {
     CDVPluginResult* result = nil;
     NSString* applicationId = [command.arguments objectAtIndex:0];
-    NSString* applicationRoute = [command.arguments objectAtIndex:1];
-    NSString* applicationSecret = [command.arguments objectAtIndex:2];
+    NSString* applicationSecret = [command.arguments objectAtIndex:1];
+    NSString* applicationRoute = [command.arguments objectAtIndex:2];
     
-    if (applicationId != nil && [applicationId length] > 0) {
-        __weak CDVIBMBluemix* weak_self = self;
-        [[IBMBluemix initializeWithApplicationId: applicationId
-                             andApplicationRoute: applicationRoute
-                            andApplicationSecret: applicationSecret] continueWithBlock:^id(BFTask *task) {
-            if (task.error){
-                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-                [weak_self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-            } else {
-                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK ];
-                [weak_self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-            }
-            return nil;
-        }];
+    if (applicationId && [applicationId length] > 0 && applicationRoute && [applicationRoute length] > 0 && applicationSecret && [applicationSecret length] > 0) {
+        @try
+        {
+            [IBMBluemix initializeWithApplicationId: applicationId
+                               andApplicationSecret: applicationSecret
+                                andApplicationRoute: applicationRoute];
+            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
+        }
+        @catch (NSException *exception)
+        {
+            result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:exception.description];
+        }
     } else {
         result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"The application id to initialize is not specified."];
     }
@@ -49,6 +47,7 @@
 
 - (void)setSecurityToken:(CDVInvokedUrlCommand*)command
 {
+    CDVPluginResult* result = nil;
     NSString* token = [command.arguments objectAtIndex:0];
     NSString* providerArg = [command.arguments objectAtIndex:1];
     IBMSecurityProvider provider = IBMSecurityProvider_GOOGLE;  // default
@@ -59,17 +58,25 @@
         provider = IBMSecurityProvider_GOOGLE;
     }
     
-    __weak CDVIBMBluemix* weak_self = self;
-    [[IBMBluemix setSecurityToken:token fromProvider:provider] continueWithBlock:^id(BFTask *task) {
-        if (task.error){
-            CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
-            [weak_self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-        } else {
-            CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK ];
-            [weak_self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-        }
-        return nil;
-    }];
+    @try
+    {
+        __weak CDVIBMBluemix* weak_self = self;
+        [[IBMBluemix setSecurityToken:token fromProvider:provider] continueWithBlock:^id(BFTask *task) {
+            if (task.error){
+                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR];
+                [weak_self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+            } else {
+                CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK ];
+                [weak_self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+            }
+            return nil;
+        }];
+    }
+    @catch (NSException *exception)
+    {
+        result = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:exception.description];
+        [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
+    }
 }
 
 - (void)clearSecurityToken:(CDVInvokedUrlCommand*)command
@@ -95,8 +102,7 @@
     json = [NSString stringWithFormat:JSON_VERSION,version];
     
     CDVPluginResult* result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:json];
-    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
-    
+    [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];    
 }
 
 - (void)currentUser:(CDVInvokedUrlCommand*)command
@@ -107,11 +113,11 @@
     
     switch (user.securityProvider){
         case IBMSecurityProvider_WORKLIGHT:
-            json = PROVIDER_WORKLIGHT;
+            securityProvider = PROVIDER_WORKLIGHT;
             break;
         case IBMSecurityProvider_GOOGLE:
         default:
-            json = PROVIDER_GOOGLE;
+            securityProvider = PROVIDER_GOOGLE;
             break;
     }
     

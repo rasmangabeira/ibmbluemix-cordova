@@ -10,6 +10,7 @@
 #import "IBMBluemixService.h"
 #import "BFTask.h"
 
+
 typedef enum IBMHttpMethod{
     IBMHttpMethod_GET, IBMHttpMethod_POST, IBMHttpMethod_PUT, IBMHttpMethod_DELETE
 }IBMHttpMethod;
@@ -50,7 +51,8 @@ The HTTP cache policy for the request.
 @property (nonatomic) NSURLRequestCachePolicy requestCachePolicy;
 
 /**
- Make the HTTP request
+ Make the HTTP request and return a BFTask to handle the response.
+ @return The BFTask with a result of IBMHttpResponse
  */
 -(BFTask*) sendRequest;
 
