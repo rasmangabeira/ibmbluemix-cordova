@@ -4,7 +4,7 @@
  *  US Government Users Restricted Rights - Use, duplication or
  *  disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  *
- *  IBM Mobile Cloud Services JavaScript SDK, v1.0.0.20140624-1249
+ *  IBM Mobile Cloud Services JavaScript SDK, v1.0.0.20140624-1350
  *
  */
 
@@ -2911,33 +2911,7 @@ var isNode = utils.isNode();
   };
   IBMDefaultAdapter.prototype.log = function (level, msg) {
     if (level.toUpperCase() == "VERBOSE") {
-      var outputMessage = null;
-      var nativeStdErrFunc = isNode ? process.stderr.write : console.trace;
-      if (isNode) {
-        process.stderr.write = function () {
-          outputMessage = arguments[0];
-        };
-      } else {
-        console.trace = function () {
-          outputMessage = arguments[0];
-        };
-      }
-      console.trace(msg);
-      if (isNode) {
-        if (msg && msg.toString().trim().length > 0) {
-          outputMessage = outputMessage.replace("Trace:", "[VERBOSE]");
-        } else {
-          outputMessage = outputMessage.replace("Trace", "[VERBOSE]");
-        }
-      } else {
-        outputMessage = "[VERBOSE] " + outputMessage;
-      }
-      if (isNode) {
-        process.stderr.write = nativeStdErrFunc;
-      } else {
-        console.trace = nativeStdErrFunc;
-      }
-      console.log(outputMessage);
+      console.log("[VERBOSE] " + msg);
     } else {
       var logMsg = "[" + level + "] " + (msg && msg.toString().trim().length > 0 ? msg : "");
       var consoleMethod = level.toLowerCase();
@@ -3366,7 +3340,7 @@ define('ibm/mobile/_IBMBluemix', ['require', 'exports', 'module', './lib/IBMUnde
 
 var logger = ibmLogger.getLogger();
   var _IBMBluemix = {
-      VERSION: "1.0.0.20140624-1249",
+      VERSION: "1.0.0.20140624-1350",
       config: {},
       initialize: function (config) {
         logger.info("IBMBluemix: initializing version: " + this.getVersion());
