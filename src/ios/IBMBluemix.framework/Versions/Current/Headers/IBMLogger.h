@@ -20,11 +20,11 @@
 
 @interface IBMLogger : NSObject
 
-+(void) logError: (NSString *)format;
-+(void) logWarning: (NSString*) format;
-+(void) logInfo: (NSString *)format;
-+(void) logTrace: (NSString*) format;
-+(void) logDebug: (NSString*) format;
++(void) logError: (NSString *)message;
++(void) logWarning: (NSString*) message;
++(void) logInfo: (NSString *)message;
++(void) logTrace: (NSString*) message;
++(void) logDebug: (NSString*) message;
 +(void) log: (NSString*) category withMessage: (NSString*) message;
 
 
@@ -37,5 +37,8 @@
 
 +(void) addLogCategory: (NSString*) category;
 +(void) removeLogCategory: (NSString*) category; 
+
+// Experimental and will change
++(void) logError: (NSError*) error withMessage: (NSString *)message;
 
 @end
