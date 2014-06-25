@@ -3,12 +3,13 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="com.ibm.mobile.cordova.ibmbluemix"
-    version="1.0.0+20140625-1347">
+    version="1.0.0+20140625-1816">
 
     <name>IBMBluemix Hybrid</name>
     <description>Cordova IBMBluemix Plugin</description>
     <license>Apache 2.0</license>
     <keywords>cordova,IBMBluemix</keywords>
+    <repo>https://hub.jazz.net/git/bluemixmobilesdk/ibmbluemix-cordova</repo>
 
 	<js-module src="www/IBMBluemixHybrid.js" name="hybrid">
         <clobbers target="IBMBluemix.hybrid" />
