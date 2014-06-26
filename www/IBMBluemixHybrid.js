@@ -4,7 +4,7 @@
  *  US Government Users Restricted Rights - Use, duplication or
  *  disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  *
- *  IBM Mobile Cloud Services JavaScript SDK, v1.0.0.20140625-1816
+ *  IBM Mobile Cloud Services JavaScript SDK, v1.0.0.20140625-1909
  *
  */
 
@@ -3340,7 +3340,7 @@ define('ibm/mobile/_IBMBluemix', ['require', 'exports', 'module', './lib/IBMUnde
 
 var logger = ibmLogger.getLogger();
   var _IBMBluemix = {
-      VERSION: "1.0.0.20140625-1816",
+      VERSION: "1.0.0.20140625-1909",
       config: {},
       initialize: function (config) {
         logger.debug("IBMBluemix: initializing version: " + this.getVersion());
