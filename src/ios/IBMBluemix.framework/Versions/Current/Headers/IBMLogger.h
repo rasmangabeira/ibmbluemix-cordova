@@ -36,7 +36,9 @@
 +(void) log: (NSString*) category withFormat: (NSString*) format, ...;
 
 +(void) addLogCategory: (NSString*) category;
-+(void) removeLogCategory: (NSString*) category; 
++(void) addLogCategories: (NSArray*) categories;
++(void) removeLogCategory: (NSString*) category;
++(void) removeLogCategories: (NSArray*) categories;
 
 // Experimental and will change
 +(void) logError: (NSError*) error withMessage: (NSString *)message;

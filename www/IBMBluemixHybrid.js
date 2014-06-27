@@ -4,7 +4,7 @@
  *  US Government Users Restricted Rights - Use, duplication or
  *  disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  *
- *  IBM Mobile Cloud Services JavaScript SDK, v1.0.0.20140626-1346
+ *  IBM Mobile Cloud Services JavaScript SDK, v1.0.0.20140626-1914
  *
  */
 
@@ -3340,7 +3340,7 @@ define('ibm/mobile/_IBMBluemix', ['require', 'exports', 'module', './lib/IBMUnde
 
 var logger = ibmLogger.getLogger();
   var _IBMBluemix = {
-      VERSION: "1.0.0.20140626-1346",
+      VERSION: "1.0.0.20140626-1914",
       config: {},
       initialize: function (config) {
         logger.debug("IBMBluemix: initializing version: " + this.getVersion());
@@ -3460,12 +3460,12 @@ define('ibm/mobile/IBMBluemixHybrid', ['require', 'exports', 'module', './lib/IB
   
 
 var CLIENT_PLATFORM_TYPE = "HYBRID";
-  var hybrid = new IBMHybrid("IBMBluemixHybrid");
   var logger = IBMLogger.getLogger();
   var IBMBluemixHybrid = _.extend({}, _IBMBluemix, {
-      hybrid: hybrid,
+      hybrid: null,
       _init: function (config) {
         var defer = Q.defer();
+        this.hybrid = new IBMHybrid("IBMBluemixHybrid");
         if (!config || !_.isObject(config)) {
           defer.reject("initialize needs a valid configuration");
           return defer.promise;
@@ -3556,6 +3556,10 @@ var CLIENT_PLATFORM_TYPE = "HYBRID";
         return defer.promise;
       }
     });
+  IBMBluemixHybrid.SecurityProvider = Object.freeze({
+    GOOGLE: "GOOGLE",
+    WORKLIGHT: "WORKLIGHT"
+  });
   module.exports = IBMBluemixHybrid;
   return IBMBluemixHybrid;
 
