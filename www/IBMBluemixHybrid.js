@@ -4,7 +4,7 @@
  *  US Government Users Restricted Rights - Use, duplication or
  *  disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  *
- *  IBM Mobile Cloud Services JavaScript SDK, v1.0.0.20140629-1236
+ *  IBM Mobile Cloud Services JavaScript SDK, v1.0.0.20140630-1753
  *
  */
 
@@ -3132,17 +3132,18 @@ define('ibm/mobile/utils/IBMLogger', ['require', 'exports', 'module', '../lib/IB
 
 var isNode = IBMUtils.isNode();
   var IBMLogger = function (object, options, category) {
-    var args = Array.prototype.slice.call(arguments);
-    var object = args[0];
-    var adapter = IBMDefaultAdapter;
+    this.adapter = new IBMDefaultAdapter();
     if (isNode) {
+      var args = Array.prototype.slice.call(arguments);
+      var object = args[0];
+      var adapterClass = IBMDefaultAdapter;
       if (object && object.transports) {
-        adapter = IBMWinstonAdapter;
+        adapterClass = IBMWinstonAdapter;
       } else if (object && object.appenders) {
-        adapter = IBMLog4jsAdapter;
+        adapterClass = IBMLog4jsAdapter;
       }
+      this.adapter = new (Function.prototype.bind.apply(adapterClass, [null].concat(args)))();
     }
-    this.adapter = new (Function.prototype.bind.apply(adapter, [null].concat(args)))();
     this.adapter.setLevel(IBMLoggerLevel.INFO);
   };
   IBMLoggerLevel.levels.forEach(function (level) {
@@ -3166,9 +3167,13 @@ var isNode = IBMUtils.isNode();
   };
   return {
     getLogger: function () {
-      var args = Array.prototype.slice.call(arguments);
-      var f = Function.prototype.bind.apply(IBMLogger, [null].concat(args));
-      return new f();
+      if (isNode) {
+        var args = Array.prototype.slice.call(arguments);
+        var f = Function.prototype.bind.apply(IBMLogger, [null].concat(args));
+        return new f();
+      } else {
+        return new IBMLogger();
+      }
     }
   };
 
@@ -3340,7 +3345,7 @@ define('ibm/mobile/_IBMBluemix', ['require', 'exports', 'module', './lib/IBMUnde
 
 var logger = ibmLogger.getLogger();
   var _IBMBluemix = {
-      VERSION: "1.0.0.20140629-1236",
+      VERSION: "1.0.0.20140630-1753",
       config: {},
       initialize: function (config) {
         logger.debug("IBMBluemix: initializing version: " + this.getVersion());
