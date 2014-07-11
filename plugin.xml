@@ -3,7 +3,7 @@
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
     xmlns:android="http://schemas.android.com/apk/res/android"
     id="com.ibm.mobile.cordova.ibmbluemix"
-    version="1.0.0-20140711-1644">
+    version="1.0.0-20140711-1657">
 
     <name>IBMBluemix Hybrid</name>
     <description>Cordova IBMBluemix Plugin</description>
