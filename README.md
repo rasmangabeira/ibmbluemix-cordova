@@ -12,7 +12,7 @@ access to the following mobile services: Mobile Application Security, Push, and 
 The Mobile Cloud Services IBMBluemix Mobile SDK is a Cordova SDK you can use inside a Cordova
 or IBM Worklight application. The `IBMBluemix` SDK manages all the communication and security integration for the various services that are defined in your application context.
 
-Version: 1.0.0-20140711-1443
+Version: 1.0.0-20140711-1644
 
 ##Installation
 The SDK may be installed either by downloading a [zip file](https://mbaas-catalog.ng.bluemix.net/sdk/ibm-bluemix-sdk-cordova.zip),
