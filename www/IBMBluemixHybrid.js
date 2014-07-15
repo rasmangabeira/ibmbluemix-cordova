@@ -4,7 +4,7 @@
  *  US Government Users Restricted Rights - Use, duplication or
  *  disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
  *
- *  IBM Mobile Cloud Services JavaScript SDK, v1.0.0.20140714-1258
+ *  IBM Mobile Cloud Services JavaScript SDK, v1.0.0.20140715-1351
  *
  */
 
@@ -3147,9 +3147,14 @@ var isNode = IBMUtils.isNode();
     this.adapter.setLevel(IBMLoggerLevel.INFO);
   };
   IBMLoggerLevel.levels.forEach(function (level) {
-    IBMLogger.prototype[level.name.toLowerCase()] = function (msg) {
+    IBMLogger.prototype[level.name.toLowerCase()] = function () {
       if (level.weight >= this.adapter.getLevel().weight) {
-        var logMsg = typeof msg == "object" ? IBMUtils.formatObject(msg) : msg;
+        var args = Array.prototype.slice.call(arguments);
+        var logMsg = "";
+        args.forEach(function (logobj) {
+          logMsg = logMsg == "" ? logMsg : logMsg + " ";
+          logMsg += typeof logobj == "object" ? IBMUtils.formatObject(logobj) : logobj;
+        });
         this.adapter.log(level.name, logMsg);
       }
     };
@@ -3345,7 +3350,7 @@ define('ibm/mobile/_IBMBluemix', ['require', 'exports', 'module', './lib/IBMUnde
 
 var logger = ibmLogger.getLogger();
   var _IBMBluemix = {
-      VERSION: "1.0.0.20140714-1258",
+      VERSION: "1.0.0.20140715-1351",
       config: {},
       initialize: function (config) {
         logger.debug("IBMBluemix: initializing version: " + this.getVersion());
